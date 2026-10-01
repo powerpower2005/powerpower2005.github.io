@@ -251,6 +251,7 @@
       "data-repo-id": box.dataset.repoId,
       "data-category": box.dataset.category,
       "data-category-id": box.dataset.categoryId,
+      "data-category-strict": "1",
       // 한국어판과 영어판이 같은 댓글창을 쓰도록 원본 글 기준의 고정 주제를 사용
       "data-mapping": "specific",
       "data-term": box.dataset.term,

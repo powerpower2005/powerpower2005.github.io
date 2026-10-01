@@ -23,10 +23,10 @@ locale: ko_KR
 # repo가 비어 있으면 댓글창이 표시되지 않습니다.
 # ─────────────────────────────────────────────
 giscus:
-  repo: ""            # 예: username/username.github.io
-  repo_id: ""
-  category: "Comments"
-  category_id: ""
+  repo: "powerpower2005/powerpower2005.github.io"
+  repo_id: "R_kgDOU3DqmQ"
+  category: "Announcements"
+  category_id: "DIC_kwDOU3Dqmc4DGz3C"
 
 # ─────────────────────────────────────────────
 # 방문 통계 (Cloudflare Web Analytics) — 토큰을 넣으면 켜집니다.
