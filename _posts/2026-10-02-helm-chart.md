@@ -4,6 +4,10 @@ date: 2026-10-02
 description: Helm chart를 바꾸면 실제로 뭐가 달라질까?
 tags:
   - Helm
+  - argocd
+  - git
+  - pr
+  - diffaro
 ---
 **Helm chart를 바꾸면 실제로 뭐가 달라질까? 그래서 Diffaro를 만들었다**
 
