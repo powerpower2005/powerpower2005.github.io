@@ -1,0 +1,102 @@
+# ─────────────────────────────────────────────
+# 사이트 기본 정보 (여기만 고치면 대부분 바뀝니다)
+# ─────────────────────────────────────────────
+title: Sirius의 기록
+description: 개발하면서 배운 것과 만든 것을 기록합니다.
+lang: ko
+timezone: Asia/Seoul
+
+# GitHub Pages 주소. username을 본인 GitHub 아이디로 바꾸세요.
+# 나중에 도메인을 연결하면 그 주소로 바꾸면 됩니다.
+url: "https://powerpower2005.github.io"
+baseurl: ""
+
+author:
+  name: Sirius
+  bio: 개발하면서 배운 것과 만든 것을 기록합니다.
+  avatar: /assets/img/avatar.svg
+
+locale: ko_KR
+
+# ─────────────────────────────────────────────
+# 댓글 (giscus) — https://giscus.app 에서 값을 복사해 넣으세요.
+# repo가 비어 있으면 댓글창이 표시되지 않습니다.
+# ─────────────────────────────────────────────
+giscus:
+  repo: ""            # 예: username/username.github.io
+  repo_id: ""
+  category: "Comments"
+  category_id: ""
+
+# ─────────────────────────────────────────────
+# 방문 통계 (Cloudflare Web Analytics) — 토큰을 넣으면 켜집니다.
+# ─────────────────────────────────────────────
+cloudflare_analytics_token: ""
+
+# 목차가 나타나는 최소 소제목(h2, h3) 개수
+toc_min_headings: 3
+
+# ─────────────────────────────────────────────
+# 아래는 보통 건드릴 필요 없습니다.
+# ─────────────────────────────────────────────
+permalink: /blog/:title/
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: false        # 소제목 id는 스크립트가 한글 그대로 만듭니다
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    disable: false
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+feed:
+  path: blog/feed.xml
+  collections:
+    en_posts:
+      path: /en/blog/feed.xml
+
+# 영어 번역 글 (scripts/translate_posts.py가 자동으로 만듭니다)
+collections:
+  en_posts:
+    output: true
+    permalink: /en/blog/:title/
+
+defaults:
+  # 공유 미리보기 기본 이미지 (글에 image를 따로 적지 않았을 때)
+  - scope:
+      path: ""
+    values:
+      image: /assets/img/og-default.png
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
+      toc: true
+  - scope:
+      path: ""
+      type: en_posts
+    values:
+      layout: post
+      lang: en
+      locale: en_US
+      comments: true
+      toc: true
+
+exclude:
+  - GITHUB_PAGES_SETUP.md
+  - .verify-libs
+  - .verify
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - scripts
+  - vendor
+  - .gif-cache
+  - .pages.yml

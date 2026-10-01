@@ -1,0 +1,13 @@
+{% comment %} 글이 많은 태그부터 정렬한 태그 이름 목록을 sorted_tags 에 담습니다. {% endcomment %}
+{% assign tag_keys = "" | split: "" %}
+{% for tag in site.tags %}
+  {% assign rank = 10000 | minus: tag[1].size %}
+  {% capture key %}{{ rank }}|{{ tag[0] }}{% endcapture %}
+  {% assign tag_keys = tag_keys | push: key %}
+{% endfor %}
+{% assign tag_keys = tag_keys | sort %}
+{% assign sorted_tags = "" | split: "" %}
+{% for key in tag_keys %}
+  {% assign name = key | split: "|" | last %}
+  {% assign sorted_tags = sorted_tags | push: name %}
+{% endfor %}

@@ -1,0 +1,11 @@
+---
+layout: default
+---
+{% assign lang = page.lang | default: site.lang | default: "ko" %}{% assign t = site.data.i18n[lang] %}
+<div class="page-narrow">
+  <header class="page-header">
+    <h1 class="page-title">{{ page.title }}</h1>
+    {% if page.description %}<p class="page-desc">{{ page.description }}</p>{% endif %}
+  </header>
+  {{ content }}
+</div>

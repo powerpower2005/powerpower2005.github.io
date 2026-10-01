@@ -1,0 +1,25 @@
+{% include archive-data.html %}
+<div class="drawer-backdrop" hidden></div>
+<nav class="drawer" id="drawer" aria-label="{{ t.menu }}" hidden>
+  <div class="drawer-head">
+    <strong>{{ t.menu }}</strong>
+    <button class="drawer-close" type="button" aria-label="{{ t.close }}">×</button>
+  </div>
+  <div class="drawer-nav">
+    {% include nav-links.html class="drawer-link" %}
+  </div>
+  {% if arch_years.size > 0 %}
+  <div class="drawer-group">
+    <span class="drawer-label">{{ t.archive }}</span>
+    {% for y in arch_years %}
+    <a class="drawer-row" href="{{ t.blog_url | relative_url }}#y{{ y.name }}"><span>{{ y.name }}</span><span class="count">{{ y.size }}</span></a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if sorted_tags.size > 0 %}
+  <div class="drawer-tags">
+    {% for name in sorted_tags %}<a href="{{ '/tags/' | relative_url }}#{{ name | slugify }}">#{{ name }}</a>{% endfor %}
+  </div>
+  {% endif %}
+</nav>
+<div class="bc-toast" role="status" hidden></div>

@@ -1,0 +1,15 @@
+{% comment %}
+  글 한 줄. include.post, include.style = home | list | compact
+{% endcomment %}
+{% assign p = include.post %}
+{% assign style = include.style | default: "home" %}
+<a class="post-link{% if style == 'compact' %} compact{% endif %}" href="{{ p.url | relative_url }}">
+  <span class="post-link-title">{{ p.title }}</span>
+  <time datetime="{{ p.date | date_to_xmlschema }}">{% if style == "list" %}{{ p.date | date: t.short_date_format }}{% else %}{{ p.date | date: t.list_date_format }}{% endif %}</time>
+  {% if style != "compact" and p.description %}<span class="post-link-desc">{{ p.description }}</span>{% endif %}
+  {% if style == "home" and p.project %}
+    {% assign pj = site.data.projects | where: "id", p.project | first %}
+    {% if pj %}<span class="post-link-project">↳ {% if lang == "en" and pj.name_en %}{{ pj.name_en }}{% else %}{{ pj.name }}{% endif %}</span>{% endif %}
+  {% endif %}
+  {% if style == "list" and lang == "ko" and p.tags.size > 0 %}<span class="post-link-tags">{% for tag in p.tags %}#{{ tag }}{% unless forloop.last %}&ensp;{% endunless %}{% endfor %}</span>{% endif %}
+</a>

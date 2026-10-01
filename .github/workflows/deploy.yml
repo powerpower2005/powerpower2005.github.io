@@ -1,0 +1,136 @@
+name: 블로그 배포
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # 댓글이 달리거나 고쳐지면 문단 댓글을 반영하려고 다시 빌드합니다
+  discussion:
+    types: [created, edited, deleted]
+  discussion_comment:
+    types: [created, edited, deleted]
+
+permissions:
+  contents: write   # 정리한 사진과 번역본을 저장소에 다시 저장하기 위해 필요
+  pages: write
+  id-token: write
+  discussions: read # 문단 댓글을 읽기 위해 필요
+
+# 빌드가 몰리면 대기 중인 빌드는 가장 최근 것 하나만 남습니다 (댓글이 연달아 달려도 빌드는 몇 번만)
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 도구 설치 (exiftool, ffmpeg)
+        run: sudo apt-get update -q && sudo apt-get install -y -q libimage-exiftool-perl ffmpeg
+
+      - name: Python 준비
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python 라이브러리 설치
+        run: pip install -q pillow pyyaml beautifulsoup4
+
+      # ── 1. 사진 메타데이터 제거 ──
+      - name: 사진 메타데이터(위치 정보 등) 제거
+        run: |
+          echo "### 메타데이터를 지운 사진" >> "$GITHUB_STEP_SUMMARY"
+          bash scripts/strip_metadata.sh assets
+
+      # ── 2. 영어 번역 (바뀐 글이 있을 때만 모델을 내려받아 실행) ──
+      - name: 번역할 글 확인
+        id: tr
+        run: python scripts/translate_posts.py --check >> "$GITHUB_OUTPUT"
+
+      - name: 번역 모델 캐시
+        if: steps.tr.outputs.needed == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-opus-mt-tc-big-ko-en-v1
+
+      - name: 번역 라이브러리 설치
+        if: steps.tr.outputs.needed == 'true'
+        run: |
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q transformers sentencepiece sacremoses
+
+      - name: 영어로 번역
+        if: steps.tr.outputs.needed == 'true'
+        run: python scripts/translate_posts.py
+
+      # ── 3. 바뀐 파일을 저장소에 저장 ──
+      - name: 정리한 사진과 번역본 저장
+        run: |
+          if [ -z "$(git status --porcelain -- assets _en_posts)" ]; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          photos=$(git status --porcelain -- assets | wc -l)
+          git add -A -- assets _en_posts
+          git commit -q -m "자동 정리: 사진 메타데이터 제거, 영어 번역 갱신"
+          if git pull -q --rebase && git push -q; then
+            if [ "$photos" -gt 0 ]; then
+              echo "::warning::사진의 메타데이터를 지워 다시 저장했어요. 지우기 전 원본은 이전 커밋 기록에 남아 있으니, 위치가 민감한 사진이라면 README의 '커밋 기록에서 지우기'를 참고하세요."
+            fi
+          else
+            echo "::warning::정리한 파일을 저장소에 저장하지 못했어요. 다음 배포 때 다시 시도합니다. (이번 배포에는 정리된 파일이 반영됩니다)"
+          fi
+
+      # ── 4. 사이트 빌드 ──
+      - name: Ruby 준비
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Pages 설정 읽기
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Jekyll 빌드
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      - name: 문단 댓글 반영
+        run: python scripts/block_comments.py _site
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: GIF 변환 캐시
+        uses: actions/cache@v4
+        with:
+          path: .gif-cache
+          key: gif-cache-${{ hashFiles('assets/**/*.gif') }}
+          restore-keys: gif-cache-
+
+      - name: GIF를 영상으로 변환
+        run: python scripts/convert_gifs.py _site
+
+      - name: 검색 색인 만들기
+        run: npx -y pagefind@1 --site _site
+
+      - name: 결과물 업로드
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: GitHub Pages에 배포
+        id: deployment
+        uses: actions/deploy-pages@v4

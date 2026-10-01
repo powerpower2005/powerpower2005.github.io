@@ -1,0 +1,33 @@
+---
+layout: default
+title: 프로젝트
+description: 직접 만드는 프로젝트와 관련 글을 모았습니다.
+---
+{% assign lang = "ko" %}{% assign t = site.data.i18n.ko %}
+<div class="projects-page">
+  <header class="page-header">
+    <h1 class="page-title">{{ page.title }}</h1>
+    <p class="page-desc">{{ page.description }}</p>
+  </header>
+  {% for pj in site.data.projects %}
+  {% assign pj_posts = site.posts | where: "project", pj.id %}
+  <article class="project-row" id="{{ pj.id }}">
+    {% include project-thumb.html project=pj wide=true %}
+    <div class="project-info">
+      <div class="project-title-row"><h2 class="project-name">{{ pj.name }}</h2>{% include project-status.html status=pj.status %}</div>
+      <p class="project-desc">{{ pj.desc }}</p>
+      {% if pj.stack %}<span class="project-stack">{{ pj.stack | join: " · " }}</span>{% endif %}
+      <div class="project-links">
+        {% if pj.path %}<a class="project-path" href="{{ pj.path | relative_url }}">{{ pj.path }} ↗</a>{% endif %}
+        {% if pj.repo %}<a class="project-repo" href="{{ pj.repo }}" target="_blank" rel="noopener">GitHub ↗</a>{% endif %}
+      </div>
+      {% if pj_posts.size > 0 %}
+      <div class="project-posts">
+        <span class="project-posts-label">{{ t.related_posts }}</span>
+        {% for p in pj_posts %}<a href="{{ p.url | relative_url }}"><span>{{ p.title }}</span><time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: t.list_date_format }}</time></a>{% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</div>

@@ -1,0 +1,13 @@
+# 첫 화면과 프로젝트 페이지에 표시할 실제 프로젝트입니다.
+# 새 프로젝트는 Pages CMS의 프로젝트 메뉴에서 추가할 수 있습니다.
+- id: blog
+  name: 이 블로그
+  name_en: This blog
+  path: /
+  repo: https://github.com/powerpower2005/powerpower2005.github.io
+  status: live
+  short: Jekyll로 만든 개인 블로그
+  short_en: A personal blog built with Jekyll
+  desc: 개발하면서 배운 것과 만든 것을 기록하는 블로그입니다.
+  desc_en: Notes on what I learn and build.
+  stack: [Jekyll, GitHub Actions]

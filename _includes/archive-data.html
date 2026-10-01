@@ -1,0 +1,3 @@
+{% if lang == "en" %}{% assign arch_posts = site.en_posts | sort: "date" | reverse %}{% else %}{% assign arch_posts = site.posts %}{% endif %}
+{% assign arch_years = arch_posts | group_by_exp: "p", "p.date | date: '%Y'" %}
+{% if lang == "ko" %}{% include tags-sorted.html %}{% else %}{% assign sorted_tags = "" | split: "" %}{% endif %}

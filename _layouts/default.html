@@ -1,0 +1,18 @@
+{% assign lang = page.lang | default: site.lang | default: "ko" %}{% assign t = site.data.i18n[lang] %}{% if page.layout == "post" %}{% assign sidebar = "toc" %}{% else %}{% assign sidebar = page.sidebar %}{% endif %}<!doctype html>
+<html lang="{{ lang }}">
+<head>
+{% include head.html %}
+</head>
+<body>
+  <a class="skip-link" href="#main">{{ t.skip }}</a>
+  {% include header.html %}
+  <div class="site-main container{% if sidebar %} has-sidebar{% endif %}">
+    {% if sidebar %}{% include sidebar.html %}{% endif %}
+    <main id="main">
+      {{ content }}
+    </main>
+  </div>
+  {% include footer.html %}
+  {% include drawer.html %}
+</body>
+</html>

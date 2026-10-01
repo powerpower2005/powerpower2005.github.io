@@ -1,0 +1,9 @@
+---
+layout: page
+lang: en
+locale: en_US
+title: Search
+sidebar: blog
+---
+{% assign lang = page.lang | default: site.lang | default: "ko" %}{% assign t = site.data.i18n[lang] %}
+{% include search.html %}

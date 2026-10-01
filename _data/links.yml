@@ -1,0 +1,7 @@
+# 포털 첫 화면에 보이는 링크입니다. 순서대로 표시됩니다.
+- label: GitHub
+  text: github.com/powerpower2005
+  url: https://github.com/powerpower2005
+- label: RSS
+  text: 새 글 구독하기
+  url: /blog/feed.xml

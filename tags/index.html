@@ -1,0 +1,21 @@
+---
+layout: page
+title: 태그
+sidebar: blog
+---
+{% assign lang = page.lang | default: site.lang | default: "ko" %}{% assign t = site.data.i18n[lang] %}
+{% include tags-sorted.html %}
+<ul class="tag-chips" aria-label="태그">
+  <li><a class="tag-chip is-active" href="#" data-tag="">{{ t.tags_all }} <span class="count">{{ site.posts.size }}</span></a></li>
+  {% for name in sorted_tags %}
+  <li><a class="tag-chip" href="#{{ name | slugify }}" data-tag="{{ name | slugify }}">#{{ name }} <span class="count">{{ site.tags[name].size }}</span></a></li>
+  {% endfor %}
+</ul>
+{% for name in sorted_tags %}
+{% assign tag_posts = site.tags[name] %}
+<section class="tag-group" id="{{ name | slugify }}">
+  <h2><span class="tag-name">#{{ name }}</span><span class="count">{{ tag_posts.size }}</span></h2>
+  <div class="post-list">{% for post in tag_posts %}{% include post-link.html post=post style="compact" %}{% endfor %}</div>
+</section>
+{% endfor %}
+{% if sorted_tags.size == 0 %}<p class="empty">아직 태그가 붙은 글이 없어요.</p>{% endif %}

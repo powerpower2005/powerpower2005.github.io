@@ -1,0 +1,9 @@
+<div class="search" data-pagefind="{{ '/pagefind/pagefind.js' | relative_url }}" data-results="{{ t.results }}" data-empty="{{ t.no_results }}">
+  <label class="search-box">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-linecap="round" stroke-width="2"/></svg>
+    <input type="search" class="search-input" placeholder="{{ t.search_ph }}" aria-label="{{ t.search }}" autocomplete="off" autofocus>
+    <kbd class="search-esc">Esc</kbd>
+  </label>
+  <div class="search-results" aria-live="polite"></div>
+  <noscript><p class="empty">{% if lang == "en" %}Turn on JavaScript to use search.{% else %}검색을 쓰려면 자바스크립트를 켜주세요.{% endif %}</p></noscript>
+</div>

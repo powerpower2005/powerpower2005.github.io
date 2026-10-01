@@ -1,0 +1,18 @@
+---
+layout: page
+lang: en
+locale: en_US
+title: Blog
+description: Notes on what I learn and build as a developer. Machine-translated from Korean.
+sidebar: blog
+---
+{% assign lang = page.lang | default: site.lang | default: "ko" %}{% assign t = site.data.i18n[lang] %}
+{% assign en_sorted = site.en_posts | sort: "date" | reverse %}
+{% assign years = en_sorted | group_by_exp: "p", "p.date | date: '%Y'" %}
+{% for year in years %}
+<section class="year-group" id="y{{ year.name }}">
+  <h2 class="year">{{ year.name }}</h2>
+  <div class="post-list">{% for post in year.items %}{% include post-link.html post=post style="list" %}{% endfor %}</div>
+</section>
+{% endfor %}
+{% if site.en_posts.size == 0 %}<p class="empty">No English posts yet.</p>{% endif %}

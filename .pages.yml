@@ -1,0 +1,138 @@
+# Pages CMS 설정 — https://app.pagescms.org 에서 이 저장소를 열면 글쓰기 화면이 나옵니다.
+media:
+  input: assets/img
+  output: /assets/img
+
+content:
+  - name: posts
+    label: 블로그 글
+    type: collection
+    path: _posts
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date]
+    fields:
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: date
+        label: 날짜
+        type: date
+      - name: description
+        label: 한 줄 요약 (글 목록과 공유 미리보기에 표시)
+        type: text
+      - name: tags
+        label: 태그
+        type: string
+        list: true
+      - name: project
+        label: "프로젝트 id (선택, _data/projects.yml의 id)"
+        type: string
+      - name: image
+        label: 공유 미리보기 이미지 (선택)
+        type: image
+      - name: body
+        label: 본문
+        type: rich-text
+
+  - name: en_posts
+    label: 영어 번역 (자동 생성)
+    type: collection
+    path: _en_posts
+    view:
+      fields: [title, date]
+    fields:
+      - name: title
+        label: 제목
+        type: string
+      - name: description
+        label: 한 줄 요약
+        type: text
+      - name: translation_locked
+        label: 직접 고친 번역 (켜면 다시 번역하지 않음)
+        type: boolean
+      - name: machine_translated
+        label: 기계 번역 안내 표시
+        type: boolean
+      - name: body
+        label: 본문
+        type: rich-text
+      - name: date
+        type: date
+        hidden: true
+      - name: permalink
+        type: string
+        hidden: true
+      - name: ref
+        type: string
+        hidden: true
+      - name: source_hash
+        type: string
+        hidden: true
+
+  - name: projects
+    label: 프로젝트
+    type: file
+    path: _data/projects.yml
+    list: true
+    fields:
+      - name: id
+        label: "id (글과 연결할 이름, 영문)"
+        type: string
+        required: true
+      - name: name
+        label: 이름
+        type: string
+      - name: status
+        label: 상태
+        type: select
+        options:
+          values: [live, dev, archived]
+      - name: short
+        label: 한 줄 설명
+        type: string
+      - name: desc
+        label: 설명
+        type: text
+      - name: stack
+        label: 기술
+        type: string
+        list: true
+      - name: path
+        label: "사이트 주소 (예: /md2slides)"
+        type: string
+      - name: repo
+        label: GitHub 주소
+        type: string
+      - name: image
+        label: 스크린샷
+        type: image
+      - name: home
+        label: 첫 화면에 표시
+        type: boolean
+      - name: name_en
+        type: string
+        hidden: true
+      - name: short_en
+        type: string
+        hidden: true
+      - name: desc_en
+        type: text
+        hidden: true
+
+  - name: links
+    label: 첫 화면 링크
+    type: file
+    path: _data/links.yml
+    list: true
+    fields:
+      - name: label
+        label: 이름
+        type: string
+      - name: text
+        label: 표시 문구
+        type: string
+      - name: url
+        label: 주소
+        type: string

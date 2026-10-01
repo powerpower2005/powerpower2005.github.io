@@ -1,0 +1,85 @@
+---
+layout: default
+---
+{% assign lang = page.lang | default: site.lang | default: "ko" %}{% assign t = site.data.i18n[lang] %}
+{% include translation-pair.html %}
+{% if lang == "en" %}
+  {% assign words = content | strip_html | number_of_words %}
+  {% assign minutes = words | divided_by: 220 | plus: 1 %}
+{% else %}
+  {% assign chars = content | strip_html | strip_newlines | size %}
+  {% assign minutes = chars | divided_by: 500 | plus: 1 %}
+{% endif %}
+{% if page.project %}{% assign post_project = site.data.projects | where: "id", page.project | first %}{% endif %}
+<article class="post"
+  data-toc-min="{{ site.toc_min_headings | default: 3 }}"{% if page.toc == false %} data-toc-off{% endif %}
+  data-bc='{"title":"{{ t.bc_title }}","write":"{{ t.bc_write }}","add":"{{ t.bc_add }}","close":"{{ t.close }}","reply":"{{ t.bc_reply }}","copied":"{{ t.bc_copied }}","delay":"{{ t.bc_delay }}","empty":"{{ t.bc_empty }}","marker":"{{ t.bc_marker }}","count":"{{ t.bc_count }}","author":"{{ t.bc_author }}"}'
+  data-i18n='{"copy":"{{ t.copy }}","copied":"{{ t.copied }}","copyLink":"{{ t.copy_link }}","zoom":"{{ t.zoom_hint }}"}'>
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: t.date_format }}</time>
+      <span>{% if lang == "en" %}{{ minutes }} {{ t.min_read }}{% else %}{{ minutes }}{{ t.min_read }}{% endif %}</span>
+      {% if lang == "ko" and pair_en %}<a class="lang-link" href="{{ pair_en.url | relative_url }}" hreflang="en" lang="en">English</a>{% endif %}
+      {% if lang == "en" and pair_ko %}<a class="lang-link" href="{{ pair_ko.url | relative_url }}" hreflang="ko" lang="ko">한국어</a>{% endif %}
+    </p>
+    {% if lang == "en" %}
+    <div class="mt-notice">
+      {% if page.machine_translated == false %}{{ t.human_notice }}{% else %}{{ t.machine_notice }}{% endif %}
+      {% if pair_ko %}<a href="{{ pair_ko.url | relative_url }}" hreflang="ko">{{ t.read_original }}</a>{% endif %}
+    </div>
+    {% endif %}
+    <div class="toc toc-mobile" hidden>
+      <button type="button" class="toc-toggle" aria-expanded="false"><span>{{ t.toc }}</span><span class="toc-icon" aria-hidden="true">+</span></button>
+      <ol class="toc-list" hidden></ol>
+    </div>
+  </header>
+
+  <div class="post-content" data-pagefind-body>
+    {{ content }}
+  </div>
+  {% comment %} 검색 결과에 보일 날짜와 태그 {% endcomment %}
+  <span hidden data-pagefind-meta="date:{{ page.date | date: '%Y.%m.%d' }}"></span>
+  {% if lang == "ko" and page.tags.size > 0 %}<span hidden data-pagefind-meta="tags:{% for tag in page.tags %}#{{ tag }}{% unless forloop.last %} {% endunless %}{% endfor %}"></span>{% endif %}
+
+  <footer class="post-footer">
+    {% if post_project %}
+    <a class="post-project" href="{{ t.projects_url | relative_url }}#{{ post_project.id }}">
+      <span class="post-project-text">
+        <span class="post-project-label">{{ t.from_project }}</span>
+        <span class="post-project-name">{% if lang == "en" and post_project.name_en %}{{ post_project.name_en }}{% else %}{{ post_project.name }}{% endif %} <span>— {% if lang == "en" and post_project.short_en %}{{ post_project.short_en }}{% else %}{{ post_project.short }}{% endif %}</span></span>
+      </span>
+      <span class="post-project-arrow" aria-hidden="true">→</span>
+    </a>
+    {% endif %}
+
+    <div class="post-meta-row">
+      {% if lang == "ko" and page.tags.size > 0 %}
+      <ul class="tags" aria-label="{{ t.tags }}">
+        {% for tag in page.tags %}<li><a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}">#{{ tag }}</a></li>{% endfor %}
+      </ul>
+      {% else %}<span></span>{% endif %}
+      {% include share.html %}
+    </div>
+
+    {% if page.previous or page.next %}
+    <nav class="post-nav" aria-label="{{ t.previous }} / {{ t.next }}">
+      {% if page.previous %}
+      <a class="post-nav-prev" href="{{ page.previous.url | relative_url }}">
+        <span class="post-nav-label">← {{ t.previous }}</span>
+        <span class="post-nav-title">{{ page.previous.title }}</span>
+      </a>
+      {% endif %}
+      {% if page.next %}
+      <a class="post-nav-next" href="{{ page.next.url | relative_url }}">
+        <span class="post-nav-label">{{ t.next }} →</span>
+        <span class="post-nav-title">{{ page.next.title }}</span>
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
+
+    {% include comments.html %}
+  </footer>
+</article>
+<div class="zoom-overlay" role="dialog" aria-label="{{ t.zoom_hint }}" hidden><img alt=""><span>{{ t.zoom_hint }}</span></div>

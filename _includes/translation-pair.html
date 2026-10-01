@@ -1,0 +1,14 @@
+{% comment %} 지금 글의 반대 언어판을 찾아 pair_ko / pair_en 에 담습니다. {% endcomment %}
+{% assign pair_ko = nil %}{% assign pair_en = nil %}
+{% if page.collection == "posts" %}
+  {% assign page_ref = page.path | split: "/" | last | split: "." | first %}
+  {% assign pair_en = site.en_posts | where: "ref", page_ref | first %}
+  {% if pair_en %}{% assign pair_ko = page %}{% endif %}
+{% elsif page.collection == "en_posts" %}
+  {% assign page_ref = page.ref %}
+  {% for p in site.posts %}
+    {% assign p_ref = p.path | split: "/" | last | split: "." | first %}
+    {% if p_ref == page.ref %}{% assign pair_ko = p %}{% break %}{% endif %}
+  {% endfor %}
+  {% if pair_ko %}{% assign pair_en = page %}{% endif %}
+{% endif %}

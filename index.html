@@ -1,0 +1,63 @@
+---
+layout: default
+---
+{% assign lang = "ko" %}{% assign t = site.data.i18n.ko %}
+<div class="home">
+  <section class="hero">
+    <div class="hero-main">
+      {% if site.author.avatar %}<img class="avatar" src="{{ site.author.avatar | relative_url }}" alt="" width="88" height="88">{% else %}<div class="avatar avatar-placeholder">photo</div>{% endif %}
+      <h1 class="hero-name">{{ site.author.name }}</h1>
+      <p class="hero-bio">{{ site.author.bio }}</p>
+    </div>
+    <ul class="links" aria-label="링크">
+      {% for link in site.data.links %}
+      {% assign href = link.url %}
+      {% unless href contains '://' or href contains 'mailto:' %}{% assign href = link.url | relative_url %}{% endunless %}
+      <li><a href="{{ href }}"{% if link.url contains '://' %} target="_blank" rel="noopener"{% endif %}><span class="link-label">{{ link.label }}</span><span class="link-text">{{ link.text }}</span></a></li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  {% assign home_projects = site.data.projects | where_exp: "pj", "pj.home != false" %}
+  {% if home_projects.size > 0 %}
+  <section class="projects">
+    <div class="section-head">
+      <h2>{{ t.projects }}</h2>
+      <a href="{{ t.projects_url | relative_url }}">{{ t.all_projects }}</a>
+    </div>
+    <div class="project-grid">
+      {% for pj in home_projects %}
+      {% assign pj_posts = site.posts | where: "project", pj.id %}
+      <article class="project-card">
+        {% include project-thumb.html project=pj %}
+        <div class="project-body">
+          <div class="project-title-row"><h3 class="project-name">{{ pj.name }}</h3>{% include project-status.html status=pj.status %}</div>
+          <p class="project-desc">{{ pj.desc }}</p>
+          {% if pj.stack %}<span class="project-stack">{{ pj.stack | join: " · " }}</span>{% endif %}
+          <div class="project-links">
+            {% if pj.path %}<a class="project-path" href="{{ pj.path | relative_url }}">{{ pj.path }} ↗</a>{% endif %}
+            {% if pj.repo %}<a class="project-repo" href="{{ pj.repo }}" target="_blank" rel="noopener">GitHub ↗</a>{% endif %}
+            {% if pj_posts.size > 0 %}<a class="project-related" href="{{ t.projects_url | relative_url }}#{{ pj.id }}">{{ t.related_posts }} {{ pj_posts.size }} →</a>{% endif %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="recent">
+    <div class="section-head">
+      <h2>{{ t.recent }}</h2>
+      <a href="{{ t.blog_url | relative_url }}">{{ t.all_posts }}</a>
+    </div>
+    {% assign recent = site.posts | slice: 0, 5 %}
+    {% if recent.size > 0 %}
+    <div class="post-list">
+      {% for post in recent %}{% include post-link.html post=post style="home" %}{% endfor %}
+    </div>
+    {% else %}
+    <p class="empty">아직 글이 없어요. 첫 글을 써보세요.</p>
+    {% endif %}
+  </section>
+</div>

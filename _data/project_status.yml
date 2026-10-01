@@ -1,0 +1,3 @@
+live: { ko: 운영 중, en: Live }
+dev: { ko: 개발 중, en: In progress }
+archived: { ko: 보관, en: Archived }

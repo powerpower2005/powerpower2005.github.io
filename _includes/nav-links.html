@@ -1,0 +1,6 @@
+{% assign nav_blog_on = false %}{% if page.url contains t.blog_url or page.collection == "posts" or page.collection == "en_posts" %}{% assign nav_blog_on = true %}{% endif %}
+<a class="{{ include.class }}" href="{{ t.blog_url | relative_url }}"{% if nav_blog_on %} aria-current="page"{% endif %}>{{ t.blog }}</a>
+{% if lang == "ko" %}
+<a class="{{ include.class }}" href="{{ t.projects_url | relative_url }}"{% if page.url contains t.projects_url %} aria-current="page"{% endif %}>{{ t.projects }}</a>
+<a class="{{ include.class }}" href="{{ '/tags/' | relative_url }}"{% if page.url contains '/tags/' %} aria-current="page"{% endif %}>{{ t.tags }}</a>
+{% endif %}

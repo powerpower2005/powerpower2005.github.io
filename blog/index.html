@@ -1,0 +1,15 @@
+---
+layout: page
+title: 블로그
+description: 개발하면서 배운 것과 만든 것을 기록합니다.
+sidebar: blog
+---
+{% assign lang = page.lang | default: site.lang | default: "ko" %}{% assign t = site.data.i18n[lang] %}
+{% assign years = site.posts | group_by_exp: "p", "p.date | date: '%Y'" %}
+{% for year in years %}
+<section class="year-group" id="y{{ year.name }}">
+  <h2 class="year">{{ year.name }}</h2>
+  <div class="post-list">{% for post in year.items %}{% include post-link.html post=post style="list" %}{% endfor %}</div>
+</section>
+{% endfor %}
+{% if site.posts.size == 0 %}<p class="empty">아직 글이 없어요.</p>{% endif %}

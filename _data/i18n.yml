@@ -1,0 +1,106 @@
+# 화면에 보이는 문구 (언어별)
+ko:
+  blog: 블로그
+  blog_url: /blog/
+  blog_desc: 개발하면서 배운 것과 만든 것을 기록합니다.
+  projects: 프로젝트
+  projects_url: /projects/
+  all_projects: 모든 프로젝트 →
+  recent: 최근 글
+  all_posts: 모든 글 보기 →
+  related_posts: 관련 글
+  tags: 태그
+  tags_all: 전체
+  search: 검색
+  search_url: /search/
+  search_ph: 제목이나 내용으로 찾기
+  results: 개의 글
+  no_results: 찾는 글이 없어요. 다른 단어로 찾아보세요.
+  feed_url: /blog/feed.xml
+  menu: 메뉴
+  archive: 연도별
+  toc: 목차
+  min_read: 분 읽기
+  previous: 이전 글
+  next: 다음 글
+  copy: 복사
+  copied: 복사됨
+  copy_link: 링크 복사
+  share: 공유하기
+  facebook: 페이스북
+  from_project: 이 글의 프로젝트
+  comments: 댓글
+  comments_note: 댓글은 GitHub 계정으로 남길 수 있어요. 한국어판과 영어판의 댓글은 함께 보입니다.
+  zoom_hint: 클릭하거나 Esc를 누르면 닫혀요
+  other_lang: English
+  date_format: "%Y년 %-m월 %-d일"
+  list_date_format: "%Y.%m.%d"
+  short_date_format: "%m.%d"
+  theme_toggle: 밝은 화면과 어두운 화면 전환
+  skip: 본문으로 건너뛰기
+  main_nav: 주요 메뉴
+  close: 닫기
+  bc_title: 문단 댓글
+  bc_write: 이 문단에 댓글 쓰기
+  bc_add: 이 문단에 댓글
+  bc_reply: GitHub에서 답글
+  bc_copied: 문단 표시를 복사했어요. 아래 댓글창에 붙여 넣고 이어서 쓰세요.
+  bc_delay: 새 댓글은 몇 분 뒤 문단 옆에 나타나요.
+  bc_empty: 아직 이 문단에 댓글이 없어요. 첫 댓글을 남겨 보세요.
+  bc_marker: 이 문단에 대한 댓글
+  bc_count: 개의 댓글
+  bc_author: 작성자
+en:
+  blog: Blog
+  blog_url: /en/blog/
+  blog_desc: Notes on what I learn and build as a developer.
+  projects: Projects
+  projects_url: /projects/
+  all_projects: All projects →
+  recent: Recent posts
+  all_posts: All posts →
+  related_posts: Related posts
+  tags: Tags
+  tags_all: All
+  search: Search
+  search_url: /en/search/
+  search_ph: Search titles and content
+  results: " posts"
+  no_results: No posts found. Try another word.
+  feed_url: /en/blog/feed.xml
+  menu: Menu
+  archive: Archive
+  toc: Contents
+  min_read: min read
+  previous: Previous
+  next: Next
+  copy: Copy
+  copied: Copied
+  copy_link: Copy link
+  share: Share
+  facebook: Facebook
+  from_project: Project
+  comments: Comments
+  comments_note: Comment with your GitHub account. Korean and English comments are shown together.
+  zoom_hint: Click or press Esc to close
+  other_lang: 한국어
+  machine_notice: This post was machine-translated from Korean and may contain errors.
+  human_notice: This post was translated from Korean.
+  read_original: Read the original
+  date_format: "%B %-d, %Y"
+  list_date_format: "%b %-d, %Y"
+  short_date_format: "%b %-d"
+  theme_toggle: Switch between light and dark mode
+  skip: Skip to content
+  main_nav: Main menu
+  close: Close
+  bc_title: Paragraph comments
+  bc_write: Comment on this paragraph
+  bc_add: Comment on this paragraph
+  bc_reply: Reply on GitHub
+  bc_copied: Paragraph marker copied. Paste it into the comment box below.
+  bc_delay: New comments appear next to the paragraph in a few minutes.
+  bc_empty: No comments on this paragraph yet.
+  bc_marker: Comment on this paragraph
+  bc_count: comments
+  bc_author: author

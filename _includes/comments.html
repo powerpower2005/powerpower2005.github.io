@@ -1,0 +1,17 @@
+{% comment %}
+  한국어판과 영어판이 같은 댓글창을 쓰도록, 댓글 주제를 원본 글 파일 이름(ref)으로 고정합니다.
+{% endcomment %}
+{% if site.giscus.repo and site.giscus.repo != "" and page.comments != false %}
+{% if page.collection == "en_posts" %}{% assign comment_term = page.ref %}{% else %}{% assign comment_term = page.path | split: "/" | last | split: "." | first %}{% endif %}
+<section class="comments" aria-labelledby="comments-title">
+  <h2 id="comments-title">{{ t.comments }}</h2>
+  <div id="giscus"
+       data-repo="{{ site.giscus.repo }}"
+       data-repo-id="{{ site.giscus.repo_id }}"
+       data-category="{{ site.giscus.category }}"
+       data-category-id="{{ site.giscus.category_id }}"
+       data-term="{{ comment_term }}"
+       data-lang="{{ lang }}"></div>
+  <p class="comments-note">{{ t.comments_note }}</p>
+</section>
+{% endif %}

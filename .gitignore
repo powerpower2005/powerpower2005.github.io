@@ -1,0 +1,9 @@
+_site/
+.jekyll-cache/
+.sass-cache/
+.gif-cache/
+vendor/
+.bundle/
+.verify-libs/
+.verify/
+__pycache__/

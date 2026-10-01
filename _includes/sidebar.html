@@ -1,0 +1,27 @@
+<aside class="sidebar{% if sidebar == 'toc' %} sidebar-post{% endif %}">
+  {% if sidebar == "toc" %}
+  <nav class="toc toc-desktop" aria-label="{{ t.toc }}">
+    <a class="toc-back" href="{{ t.blog_url | relative_url }}">← {{ t.blog }}</a>
+    <div class="toc-body" hidden>
+      <p class="toc-heading">{{ t.toc }}</p>
+      <ol class="toc-list"></ol>
+    </div>
+  </nav>
+  {% else %}
+  {% include archive-data.html %}
+  <div class="side-group">
+    <a class="side-title" href="{{ t.blog_url | relative_url }}">{{ t.blog }}</a>
+    {% for y in arch_years %}
+    <a class="side-row" href="{{ t.blog_url | relative_url }}#y{{ y.name }}"><span>{{ y.name }}</span><span class="count">{{ y.size }}</span></a>
+    {% endfor %}
+  </div>
+  {% if sorted_tags.size > 0 %}
+  <div class="side-group">
+    <a class="side-title" href="{{ '/tags/' | relative_url }}">{{ t.tags }}</a>
+    {% for name in sorted_tags %}
+    <a class="side-row" data-tag="{{ name | slugify }}" href="{{ '/tags/' | relative_url }}#{{ name | slugify }}"><span>#{{ name }}</span><span class="count">{{ site.tags[name].size }}</span></a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endif %}
+</aside>

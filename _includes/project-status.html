@@ -1,0 +1,1 @@
+{% assign st = include.status | default: "live" %}<span class="project-status status-{{ st }}">{{ site.data.project_status[st][lang] | default: st }}</span>

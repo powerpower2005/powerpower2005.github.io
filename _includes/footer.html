@@ -1,0 +1,9 @@
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <span>© {{ site.time | date: "%Y" }} {{ site.author.name }}</span>
+    <span class="footer-links">
+      {% if lang == "en" %}<a href="{{ '/blog/' | relative_url }}" lang="ko">한국어</a>{% elsif site.en_posts.size > 0 %}<a href="{{ '/en/blog/' | relative_url }}" lang="en">English</a>{% endif %}
+      <a href="{{ t.feed_url | relative_url }}">RSS</a>
+    </span>
+  </div>
+</footer>

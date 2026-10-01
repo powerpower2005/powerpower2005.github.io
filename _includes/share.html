@@ -1,0 +1,9 @@
+{% assign share_url = page.url | absolute_url | url_encode %}
+{% assign share_title = page.title | url_encode %}
+<div class="share" aria-label="{{ t.share }}">
+  <button type="button" class="share-btn" data-copy-link>{{ t.copy_link }}</button>
+  <button type="button" class="share-btn" data-native-share hidden>{{ t.share }}</button>
+  <a class="share-btn" href="https://twitter.com/intent/tweet?url={{ share_url }}&text={{ share_title }}" target="_blank" rel="noopener">X</a>
+  <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" rel="noopener">{{ t.facebook }}</a>
+  <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url }}" target="_blank" rel="noopener">LinkedIn</a>
+</div>

@@ -1,0 +1,12 @@
+# 번역 용어집: 한국어 단어를 항상 같은 영어로 번역합니다.
+# 긴 단어부터 먼저 적용되니 순서는 상관없습니다.
+# 문장 속에서 조사가 붙어도 적용됩니다. (예: "저장소를" → "repository")
+배포: deployment
+저장소: repository
+커밋: commit
+브랜치: branch
+깃허브: GitHub
+워크플로: workflow
+소제목: heading
+목차: table of contents
+댓글: comments
