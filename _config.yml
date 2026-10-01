@@ -67,11 +67,6 @@ collections:
     permalink: /en/blog/:title/
 
 defaults:
-  # 공유 미리보기 기본 이미지 (글에 image를 따로 적지 않았을 때)
-  - scope:
-      path: ""
-    values:
-      image: /assets/img/og-default.png
   - scope:
       path: ""
       type: posts

@@ -1,4 +1,4 @@
 {% assign pj = include.project %}
 <div class="project-thumb{% if include.wide %} wide{% endif %}">
-  {% if pj.image %}<img src="{{ pj.image | relative_url }}" alt="" loading="lazy">{% else %}<span>screenshot · {{ pj.name }}</span>{% endif %}
+  {% if pj.image %}<img src="{{ pj.image | relative_url }}" alt="" loading="lazy">{% else %}<span>{{ pj.name }}</span>{% endif %}
 </div>
