@@ -18,7 +18,10 @@ description: 직접 만드는 프로젝트와 관련 글을 모았습니다.
       <p class="project-desc">{{ pj.desc }}</p>
       {% if pj.stack %}<span class="project-stack">{{ pj.stack | join: " · " }}</span>{% endif %}
       <div class="project-links">
-        {% if pj.path %}<a class="project-path" href="{{ pj.path | relative_url }}">{{ pj.path }} ↗</a>{% endif %}
+        {% if pj.path %}
+        {% assign project_href = pj.path %}{% unless pj.path contains '://' %}{% assign project_href = pj.path | relative_url %}{% endunless %}
+        <a class="project-path" href="{{ project_href }}"{% if pj.path contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ pj.path | remove: 'https://' | remove: 'http://' }} ↗</a>
+        {% endif %}
         {% if pj.repo %}<a class="project-repo" href="{{ pj.repo }}" target="_blank" rel="noopener">GitHub ↗</a>{% endif %}
       </div>
       {% if pj_posts.size > 0 %}
