@@ -11,3 +11,16 @@
   desc: 개발하면서 배운 것과 만든 것을 기록하는 블로그입니다.
   desc_en: Notes on what I learn and build.
   stack: [Jekyll, GitHub Actions]
+
+- id: ck-a-s-ad
+  name: 쿠버네티스 문제집
+  name_en: Kubernetes Practice
+  path: /CK-A-S-AD/
+  repo: https://github.com/powerpower2005/CK-A-S-AD
+  status: live
+  home: true
+  short: CKA · CKS · CKAD 학습 문제와 실습 가이드
+  short_en: Practice questions and lab guides for CKA, CKS, and CKAD
+  desc: CKA·CKS·CKAD 학습을 위한 쿠버네티스 문제집. 직접 입력 채점, 오답노트, 시간 제한 풀이와 개인 클러스터 실습 가이드를 제공합니다.
+  desc_en: A Kubernetes study site for CKA, CKS, and CKAD with typed-answer grading, wrong-answer review, timed practice, and guides for hands-on labs in your own cluster.
+  stack: [JavaScript, HTML, CSS, Node.js, GitHub Pages]
