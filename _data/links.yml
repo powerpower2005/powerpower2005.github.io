@@ -2,6 +2,9 @@
 - label: GitHub
   text: github.com/powerpower2005
   url: https://github.com/powerpower2005
+- label: 오픈소스
+  text: Diffaro · GitOps PR 미리보기
+  url: https://github.com/powerpower2005/diffaro
 - label: RSS
   text: 새 글 구독하기
   url: /blog/feed.xml
