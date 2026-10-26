@@ -3,6 +3,7 @@ title: AWS 비용이 증가하는 운영 케이스와 설계 대응
 date: 2026-10-27 00:00:00 +0900
 description: NAT 경로, 저사용량 Endpoint, 멀티클라우드 DB 통신, Kubernetes Requests, Spot 운영에서 비용 원인과 권장 대응 비교
 tags: [AWS, DevOps, 비용최적화, Kubernetes, 멀티클라우드]
+translate: false
 ---
 
 AWS 운영에서 비용이 커지는 케이스와 대응 방법을 정리함. 최적화의 기준은 **성능·보안·가용성 요구사항을 충족하면서 요청당 비용을 낮추는 것**임. AWS Well-Architected의 비용 최적화와 신뢰성을 함께 고려한 대응 방향임.
