@@ -5,7 +5,7 @@ description: NAT 경로, 저사용량 Endpoint, 멀티클라우드 DB 통신, Ku
 tags: [AWS, DevOps, 비용최적화, Kubernetes, 멀티클라우드]
 ---
 
-『요즘 개발자를 위한 AWS 비용 최적화』를 읽고, 운영에서 비용이 커지는 케이스를 중심으로 정리함. 최적화의 기준은 **성능·보안·가용성 요구사항을 충족하면서 요청당 비용을 낮추는 것**임. AWS Well-Architected의 비용 최적화와 신뢰성을 함께 고려한 대응 방향임.
+AWS 운영에서 비용이 커지는 케이스와 대응 방법을 정리함. 최적화의 기준은 **성능·보안·가용성 요구사항을 충족하면서 요청당 비용을 낮추는 것**임. AWS Well-Architected의 비용 최적화와 신뢰성을 함께 고려한 대응 방향임.
 
 ## NAT Gateway의 Cross-AZ와 S3 경유
 
@@ -77,12 +77,6 @@ Replica와 AZ 분산은 추가 비용을 수반하므로 허용 중단 시간과
 Cost Explorer의 서비스·Usage Type, 활성화한 비용 할당 태그와 Cost Category로 비용 소유자 및 상위 지출 확인. CloudWatch·VPC Flow Logs로 사용량과 경로를 대조하되 로그 수집 비용도 관리 필요.
 
 Budgets·Cost Anomaly Detection으로 이상 징후를 감시하고, 한 번에 한 항목씩 변경 후 **요청당 비용·p95 지연·오류율·복구 시간** 비교 권장. Rightsizing 후 Savings Plans·RI 약정 검토. [AWS Well-Architected 비용 최적화](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html) 기준의 지속적인 재평가 필요.
-
-## 출처
-
-박정빈·안다영·안진모·이준용·임정환, 『요즘 개발자를 위한 AWS 비용 최적화』, 길벗, 2026, ISBN 979-11-407-2057-6.
-
-[직접 작성한 티스토리 원문](https://luv-n-interest.tistory.com/1674)을 바탕으로 운영 케이스와 권장 대응을 재구성함.
 
 ## 케이스별 선택 요약
 
