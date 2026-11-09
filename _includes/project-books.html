@@ -1,0 +1,4 @@
+{% assign project_books = site.data.books | where: "project", include.project_id %}
+{% for book in project_books %}
+<a class="project-path" href="{{ book.url | escape }}" target="_blank" rel="noopener">{{ t.project_book }} · {{ book.title | escape }} ↗</a>
+{% endfor %}

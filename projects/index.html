@@ -23,6 +23,7 @@ description: 직접 만드는 프로젝트와 관련 글을 모았습니다.
         <a class="project-path" href="{{ project_href }}"{% if pj.path contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ pj.path | remove: 'https://' | remove: 'http://' }} ↗</a>
         {% endif %}
         {% if pj.repo %}<a class="project-repo" href="{{ pj.repo }}" target="_blank" rel="noopener">GitHub ↗</a>{% endif %}
+        {% include project-books.html project_id=pj.id %}
       </div>
       {% if pj_posts.size > 0 %}
       <div class="project-posts">

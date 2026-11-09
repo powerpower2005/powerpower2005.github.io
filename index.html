@@ -40,10 +40,28 @@ layout: default
             <a class="project-path" href="{{ project_href }}"{% if pj.path contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ pj.path | remove: 'https://' | remove: 'http://' }} ↗</a>
             {% endif %}
             {% if pj.repo %}<a class="project-repo" href="{{ pj.repo }}" target="_blank" rel="noopener">GitHub ↗</a>{% endif %}
+            {% include project-books.html project_id=pj.id %}
             {% if pj_posts.size > 0 %}<a class="project-related" href="{{ t.projects_url | relative_url }}#{{ pj.id }}">{{ t.related_posts }} {{ pj_posts.size }} →</a>{% endif %}
           </div>
         </div>
       </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if site.data.books.size > 0 %}
+  <section class="writing" id="writing" aria-labelledby="writing-heading">
+    <div class="section-head">
+      <h2 id="writing-heading">{{ t.writing }}</h2>
+    </div>
+    <div class="post-list">
+      {% for book in site.data.books %}
+      <a class="post-link" href="{{ book.url | escape }}" target="_blank" rel="noopener">
+        <span class="post-link-title">{{ book.title | escape }}</span>
+        <span class="post-link-source">{{ book.publisher | escape }} ↗</span>
+        <span class="post-link-desc">{{ book.description | escape }}</span>
+      </a>
       {% endfor %}
     </div>
   </section>
